@@ -4,7 +4,7 @@ import glm
 import numpy as np
 import gc
 
-# import random
+import random
 
 from scripts import (frame_buffer,
                      camera,
@@ -19,10 +19,10 @@ class Renderer(object):
 
         positions = []
         colors = []
-        # for x in range(5):
-        #     for z in range(5):
-        #         positions.extend(((x - 2.5) * 10, 1, (z - 2.5) * 10))
-        #         colors.extend([random.random() for _ in range(3)])
+        for x in range(5):
+            for z in range(5):
+                positions.extend(((x - 2.5) * 10, 1, (z - 2.5) * 10))
+                colors.extend([random.random() for _ in range(3)])
 
         positions.extend((0, 4, 20))
         colors.extend((0, 1, 0))
@@ -147,9 +147,13 @@ class Renderer(object):
             return -1
 
         major, minor, rev = glfwGetVersion()
-        print("glfw version: {}.{}.{}".format(major, minor, rev))
+        print("GLFW {}.{}.{}".format(major, minor, rev))
 
         glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API)
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3)
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3)
+        glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, True)
+
 
         if size is None:
             monitor = glfwGetPrimaryMonitor()
@@ -170,10 +174,11 @@ class Renderer(object):
         glfwMakeContextCurrent(self.window)
         self.size = size
 
+        print('OpenGL {}'.format(glGetString(GL_VERSION)))
+
         glfwSetWindowSizeCallback(self.window, on_window_size)
         glfwSetWindowUserPointer(self.window, self)
 
-        glfwMakeContextCurrent(self.window)
         glfwSwapInterval(0)
 
         glEnable(GL_DEBUG_OUTPUT)
@@ -234,7 +239,7 @@ class Renderer(object):
         glfwDestroyWindow(self.window)
         glfwTerminate()
 
-
+@GLDEBUGPROC
 def MessageCallback(source, msg_type, msg_id, severity, length, message, userParam):
     print("GL CALLBACK: {} type = {}, severity = {}, message = {}".format(source, msg_type, severity,
                                                                           message.decode("utf-8")))

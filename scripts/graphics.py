@@ -1,7 +1,8 @@
 import numpy as np
 
 import objloader
-import mesh, texture
+from mesh import *
+from texture import *
 
 
 class Graphics(object):
@@ -14,7 +15,7 @@ class Graphics(object):
         if filename in self.textures:
             return self.textures[filename]
         else:
-            t = texture.Texture(self.tex_format.format(filename), linear)
+            t = Texture(self.tex_format.format(filename), linear)
             self.textures[filename] = t
             return t
 
@@ -25,10 +26,12 @@ class Graphics(object):
             obj = objloader.ObjFile('{}.obj'.format(filename))
             mesh_data = obj.objects.values()[0]
 
-            m = mesh.Mesh((3, np.array(mesh_data.vertices, np.float32)),
-                          (3, np.array(mesh_data.normals, np.float32)),
-                          (2, np.array(mesh_data.tex_coords, np.float32)),
-                          np.array(mesh_data.indices, np.int32))
+            vertices = np.array(mesh_data.vertices, dtype=np.float32).flatten()
+            normals = np.array(mesh_data.normals, dtype=np.float32).flatten()
+            texcoords = np.array(mesh_data.tex_coords, dtype=np.float32).flatten()
+            indices = np.array(mesh_data.indices, dtype=np.int32).flatten()
+
+            m = Mesh(vertices, normals, texcoords, indices)
 
             self.meshes[filename] = m
             return m

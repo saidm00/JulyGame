@@ -34,7 +34,7 @@ class InputManager:
 
         self.rt_down = False
         self.lt_down = False
-        self.button_states = [False for _ in range(14)]
+        self.button_states = [False for _ in range(16)]
 
     def update(self, dt):
         joy_axis = glfwGetJoystickAxes(GLFW_JOYSTICK_1)

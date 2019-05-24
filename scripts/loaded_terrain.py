@@ -1,9 +1,3 @@
-import numpy as np
-
-import objloader
-import mesh
-
-
 class Terrain:
     def __init__(self, engine):
         self.texture = engine.graphics.get_texture('dirt')
