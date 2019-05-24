@@ -29,7 +29,7 @@ class Graphics(object):
             vertices = np.array(mesh_data.vertices, dtype=np.float32).flatten()
             normals = np.array(mesh_data.normals, dtype=np.float32).flatten()
             texcoords = np.array(mesh_data.tex_coords, dtype=np.float32).flatten()
-            indices = np.array(mesh_data.indices, dtype=np.int32).flatten()
+            indices = np.array(mesh_data.indices, dtype=np.uint32).flatten()
 
             m = Mesh(vertices, normals, texcoords, indices)
 
