@@ -22,7 +22,7 @@ class Mesh:
         glBindBuffer(GL_ARRAY_BUFFER, self.vertexBuffers[2])
         glBufferData(GL_ARRAY_BUFFER, texcoords.nbytes, texcoords, GL_STATIC_DRAW)
         glEnableVertexAttribArray(2)
-        glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, ctypes.cast(0, ctypes.c_void_p))
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, ctypes.cast(0, ctypes.c_void_p))
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self.vertexBuffers[3])
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.nbytes, indices, GL_STATIC_DRAW)
